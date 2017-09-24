@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Hello Dojo</title>
+    </head>
+    <body>
+        <script
+            data-dojo-config="async: true"
+            src="//ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js">
+        </script>
+        <script>
+            require(["dojo/domReady", "dojo/dom-construct",
+            "dojox/layout/FloatingPane", "dojo/dom",
+            "dojo/_base/lang"
+          ],
+            function(domReady, domConstruct, FloatingPane, dom, lang){
+              var h1 = domConstruct.create("h1", {
+                          innerHTML: "Hello World, the DOM ready123!"
+                      });
+              domConstruct.place(h1, document.body);
+
+              var h2 = domConstruct.create("h2", {
+                          innerHTML: "h2 Hello World, the DOM ready123!"
+                      });
+              domConstruct.place(h2, document.body);
+
+var node = domConstruct.toDom('<div id="pFloatingPane">This is the content of the pane!</div>');
+domConstruct.place(node, document.body);
+// TODO: prob want to destroy at the end
+console.log("added a div");
+
+var pFloatingPane = new dojox.layout.FloatingPane({
+     title: "A floating pane notification",
+     resizable: true, dockable: true,
+     style: "position:absolute;top:200;left:200;width:200px;height:100px;visibility:hidden;",
+     id: "pFloatingPane"
+  }, dom.byId("pFloatingPane"));
+
+  pFloatingPane.startup();
+              console.log("floating");
+              //domConstruct.place(fp, document.body);
+              setTimeout(lang.hitch(pFloatingPane, function() {
+                // Call with `this`
+                console.log("show you mofo");
+                pFloatingPane.show();
+              }), 1000);
+
+              setTimeout(lang.hitch(pFloatingPane, function() {
+                // Call with `this`
+                console.log("hide you mofo");
+                pFloatingPane.hide();
+              }), 6000);
+
+              console.log("show floating");
+            });
+        </script>
+
+    </body>
+</html>
